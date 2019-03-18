@@ -19,7 +19,7 @@ import javax.swing.JScrollPane;
 
 /**
  *
- * @author INFO17
+ * @author dodo99
  */
 public class View extends JFrame implements ActionListener, Model.ModelObserver{
     JButton aggiunta;

@@ -6,7 +6,7 @@ import javax.swing.JTextField;
 
 /**
  * 
- * @author INFO18
+ * @author dodo99
  * classe contenete i metodi per l'aggiunta del pannello
  */
 public class AddPanel extends JPanel {

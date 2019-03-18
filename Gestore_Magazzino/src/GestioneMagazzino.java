@@ -6,7 +6,7 @@
 
 /**
  *
- * @author INFO17
+ * @author dodo99
  */
 public class GestioneMagazzino {
 

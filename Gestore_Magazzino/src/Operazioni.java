@@ -10,7 +10,7 @@ import java.util.GregorianCalendar;
 
 /**
  * 
- * @author INFO17
+ * @author dodo99
  */
 public class Operazioni implements Serializable {
     private Object data;

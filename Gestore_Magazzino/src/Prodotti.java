@@ -9,7 +9,7 @@ import java.util.Objects;
 
 /**
  * 
- * @author INFO17
+ * @author dodo99
  */
 public class Prodotti implements Serializable {
     private int numprod=0;
