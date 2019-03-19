@@ -33,7 +33,7 @@ public class View extends JFrame implements ActionListener, Model.ModelObserver{
     JList<Operazioni> list2;
     Model model;
     
-    /**
+    /** 
      * 
      * @param model parametro che richiede un oggetto Model per poter utilizzare i metodi di quella classe
      */
