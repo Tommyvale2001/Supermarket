@@ -15,6 +15,7 @@ import java.awt.FlowLayout;
 import javax.swing.SwingConstants;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
+import java.awt.Font;
 
 public class fstjfrm extends JFrame {
 
@@ -46,14 +47,14 @@ public class fstjfrm extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		
-		JButton btnFdg = new JButton("FDG");
+		JButton btnFdg = new JButton("Admin Program");
+		btnFdg.setFont(new Font("Times New Roman", Font.BOLD, 22));
 		btnFdg.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Runtime runtime = Runtime.getRuntime();
 				try {
-					runtime.exec("C:\\Users\\masch\\OneDrive\\Documenti\\Scuola\\Informatica\\Programmi\\Java\\Projects\\Supermarket\\Supermarket\\Gestore_Magazzino\\src");
+					runtime.exec("java -jar C:\\Users\\masch\\OneDrive\\Documenti\\Scuola\\Informatica\\Programmi\\Java\\Projects\\Supermarket\\Supermarket\\Graphic\\src\\provagrafica\\Gestore_magazzino.jar");
 				} catch (IOException e1) {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 			}
@@ -62,16 +63,16 @@ public class fstjfrm extends JFrame {
 		gl_contentPane.setHorizontalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_contentPane.createSequentialGroup()
-					.addGap(311)
-					.addComponent(btnFdg)
-					.addContainerGap(493, Short.MAX_VALUE))
+					.addGap(98)
+					.addComponent(btnFdg, GroupLayout.PREFERRED_SIZE, 187, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap(608, Short.MAX_VALUE))
 		);
 		gl_contentPane.setVerticalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_contentPane.createSequentialGroup()
-					.addGap(222)
-					.addComponent(btnFdg)
-					.addContainerGap(277, Short.MAX_VALUE))
+					.addGap(157)
+					.addComponent(btnFdg, GroupLayout.PREFERRED_SIZE, 72, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap(293, Short.MAX_VALUE))
 		);
 		contentPane.setLayout(gl_contentPane);
 	}
