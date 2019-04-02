@@ -21,8 +21,8 @@ import javax.swing.JScrollPane;
  *
  * @author dodo99
  */
-public class View extends JFrame implements ActionListener, Model.ModelObserver{
-    JButton aggiunta;
+public class View extends JFrame implements ActionListener{
+	JButton aggiunta;
     JButton salvataggio;
     JButton visualizzaprod;
     JButton operazione;
@@ -145,31 +145,6 @@ public class View extends JFrame implements ActionListener, Model.ModelObserver{
     }
     }
 
-    /**
-     * 
-     * @param prodotti parametro che richiede un prodotto
-     * @param operazioni parametro che richiede un operazione
-     * @param status parametro che richiede uno status
-     */
-    @Override
-    public void modelChanged(Prodotti[] prodotti, Operazioni[] operazioni, Model.Status status) {
-        switch(status){
-        case openedError :
-             JOptionPane.showMessageDialog(this, "Errore nell'apertura del file", "Errore", JOptionPane.ERROR_MESSAGE);
-             break;
-          case savedError:
-             JOptionPane.showMessageDialog(this, "Errore nel salvataggio", "Errore", JOptionPane.ERROR_MESSAGE);
-             break;
-          case addError:
-             JOptionPane.showMessageDialog(this, "Codici uguali. Studente non aggiunto", "Errore", JOptionPane.ERROR_MESSAGE);
-             break;
-          case deleteError:
-             JOptionPane.showMessageDialog(this, "Prodotto inesistente", "Errore", JOptionPane.ERROR_MESSAGE);
-             break;
-          case qntError:
-              JOptionPane.showMessageDialog(this, "I prodotti sono esauriti", "Errore", JOptionPane.ERROR_MESSAGE);
-              break;
-    }
         //delete.setEnabled(false);
       //if(students.length!=0){
          //delete.setEnabled(true);
@@ -177,4 +152,4 @@ public class View extends JFrame implements ActionListener, Model.ModelObserver{
       //list.setListData(prodotti);
       //list2.setListData(operazioni);
 }
-}
+

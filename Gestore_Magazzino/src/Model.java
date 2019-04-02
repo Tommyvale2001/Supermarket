@@ -15,32 +15,20 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
+
+import javax.swing.JOptionPane;
      
 /*
 *
 * @author dodo99
 */
 public class Model {
-    public interface ModelObserver {
+    
 
-        /**
-         * 
-         * @param prodotti parametro che richiede un elemento dell' array list Prodotti
-         * @param operazioni parametro che richiede un elemento dell' array list Operazioni
-         * @param status parametro che richiede un oggetto Status
-         * osservatori
-         */
-      public void modelChanged(Prodotti[] prodotti, Operazioni[] operazioni,Status status);
-      //public void modelChanged(Operazioni[] operation, Status status);
-   }
-
-   public enum Status {
-      openedError,savedError,addError,deleteError,normalExecution,qntError;
-   }
    
-   private List<Prodotti> products;
-   public List<Operazioni> operation;
-   private List<ModelObserver> observers;
+   
+   private ArrayList<Prodotti> products;
+   public ArrayList<Operazioni> operation;
    private static int contaProdotti= 0;
    /**
     * Costruttore Model contenete gli arraylist
@@ -48,13 +36,11 @@ public class Model {
     public Model() {
         this.products = new ArrayList<>();
         this.operation = new ArrayList<>();
-        this.observers = new ArrayList<>();
     }
     /**
      * metodo di apertura file
      */
     void open() {
-      Status status= Status.normalExecution;
        try {
            //qui apertura file a caricamento degli studenti nell'arraylist
            FileInputStream f = new FileInputStream("Prodotti.dat");
@@ -64,7 +50,6 @@ public class Model {
                try{
             products.add((Prodotti)fi.readObject());
             contaProdotti=contaProdotti+1;
-            status=Status.normalExecution;
             //operation.add((Operazioni)fi.readObject());
                   
                
@@ -76,15 +61,11 @@ public class Model {
                }
               
        } catch (FileNotFoundException | ClassNotFoundException ex) {
-          status=Status.openedError;
-       } catch (IOException ex) {
-           status=Status.addError;    
+       } catch (IOException ex) {    
        }
-      updateObservers(status);
    }
     
     void openOp() {
-      Status status= Status.normalExecution;
        try {
            //qui apertura file a caricamento degli studenti nell'arraylist
            FileInputStream f = new FileInputStream("Operazioni.dat");
@@ -93,7 +74,6 @@ public class Model {
            while(!ended){
                try{
             operation.add((Operazioni)fi.readObject());
-            status=Status.normalExecution;
             //operation.add((Operazioni)fi.readObject());
                   
                
@@ -105,18 +85,14 @@ public class Model {
                }
               
        } catch (FileNotFoundException | ClassNotFoundException ex) {
-          status=Status.openedError;
        } catch (IOException ex) {
-           status=Status.addError;    
        }
-      updateObservers(status);
    }
 
     /**
      * metodo di salvataggio
      */
    void save() {
-      Status status= Status.normalExecution;
        try {
            //qui salvataggio degli studenti
            FileOutputStream prod = new FileOutputStream("Prodotti.dat");
@@ -132,16 +108,13 @@ public class Model {
           
        } catch (Exception ex) {
           
-           status=Status.savedError;
        }
       
-      updateObservers(status);
    }
    /**
     * metodo che salva su file le operazioni
     */
    void saveOp() {
-      Status status= Status.normalExecution;
        try {
            //qui salvataggio degli studenti
            FileOutputStream oper = new FileOutputStream("Operazioni.dat");
@@ -157,10 +130,8 @@ public class Model {
           
        } catch (Exception ex) {
           
-           status=Status.savedError;
        }
       
-      updateObservers(status);
    }
    
    /**
@@ -169,13 +140,14 @@ public class Model {
     * 
     */
     public void add(Prodotti prodotto) {
-      Status status= Status.addError;
       contaProdotti+=1;
-      if (!products.contains(prodotto)) {
+      if (!products.getNomeprod().contains(prodotto.getNomeprod())) {
          products.add(prodotto);     
-         status=Status.normalExecution;
       }
-      updateObservers(status);
+      else
+      {
+    	  JOptionPane.showMessageDialog(null,"Prodotto gi� esistente!");
+      }
     }
     
     /**
@@ -184,17 +156,12 @@ public class Model {
      * @param qnt parametro che richiede l'inserimento della quantità da prelevare
      */
     public void Prelievo(int numprod, int qnt){
-        Status status= Status.normalExecution;
         for(int i=0; i<products.size(); i++){
             if(products.get(i).getNumprod() == numprod && qnt <= products.get(i).getGiacenza()){
                 products.get(i).setGiacenza(products.get(i).getGiacenza()-qnt);
                 Operazioni op = new Operazioni(numprod,"Prelievo",qnt);
                 operation.add(op);
-                if(products.get(i).getGiacenza()==0){
-                    status=Status.qntError;
-                }
             }
-        updateObservers(status);
     }
     }
     /**
@@ -203,7 +170,6 @@ public class Model {
      * @param qnt parametro che richiede l'inserimento della quantità da depositare
      */
     public void Deposito(int numprod, int qnt){
-        Status status= Status.normalExecution;
         for(int i=0; i<products.size(); i++){
             if(products.get(i).getNumprod() == numprod){                
                 products.get(i).setGiacenza(products.get(i).getGiacenza()+qnt);
@@ -222,35 +188,6 @@ public class Model {
   
     }
     
-    /**
-     * 
-     * @param observer parametro che permette l'aggiunta di un oggetto ModelObServer
-     */
-    public void addObserver(ModelObserver observer){
-      observers.add(observer);
-    }
-    /**
-     * 
-     * @param observer parametro che permette la rimozione di un oggetto ModelObServer
-     * @return restituisce la lista degli osservatori rimossi
-     */
-    public boolean removeObserver(ModelObserver observer){
-      return observers.remove(observer);
-    }
-    /**
-     * 
-     * @param status parametro che richiede una status è lo aggiorna
-     */
-   private void updateObservers(Status status) {
-      Prodotti []v=new Prodotti[products.size()];
-      Operazioni []v1=new Operazioni[operation.size()];
-      products.toArray(v);
-      operation.toArray(v1);
-      for(ModelObserver observer:observers){
-         observer.modelChanged(v,v1,status);
-   
-        }
-    }
 
    /**
     * 
