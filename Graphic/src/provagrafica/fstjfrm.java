@@ -23,9 +23,6 @@ public class fstjfrm extends JFrame {
 
 	private JPanel contentPane;
 
-	/**
-	 * Launch the application.
-	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -38,10 +35,6 @@ public class fstjfrm extends JFrame {
 			}
 		});
 	}
-
-	/**
-	 * Create the frame.
-	 */
 	public fstjfrm() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 919, 571);
@@ -55,15 +48,21 @@ public class fstjfrm extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				Runtime runtime = Runtime.getRuntime();
 				try {
-					runtime.exec("java -jar C:\\Users\\masch\\OneDrive\\Documenti\\Scuola\\Informatica\\Programmi\\Java\\Projects\\Supermarket\\Supermarket\\Graphic\\src\\provagrafica\\Gestore_magazzino.jar");
+					String current = new java.io.File( "." ).getCanonicalPath();
+					current= current +"\\Gestore_magazzino.jar";
+					//System.out.println(current);
+					runtime.exec("java -jar "+current);
 				} catch (IOException e1) {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 			}
 		});
 		
 		JButton btnLogin = new JButton("Login");
+		btnLogin.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			}
+		});
 		btnLogin.setFont(new Font("Times New Roman", Font.BOLD, 16));
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
@@ -77,12 +76,12 @@ public class fstjfrm extends JFrame {
 		);
 		gl_contentPane.setVerticalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_contentPane.createSequentialGroup()
-					.addGap(145)
-					.addComponent(btnFdg)
+				.addGroup(Alignment.TRAILING, gl_contentPane.createSequentialGroup()
+					.addGap(180)
+					.addComponent(btnLogin, GroupLayout.PREFERRED_SIZE, 29, Short.MAX_VALUE)
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(btnLogin, GroupLayout.PREFERRED_SIZE, 17, Short.MAX_VALUE)
-					.addGap(313))
+					.addComponent(btnFdg)
+					.addGap(278))
 		);
 		contentPane.setLayout(gl_contentPane);
 	}
