@@ -104,7 +104,7 @@ public class View extends JFrame implements ActionListener{
             break;
          case "Aggiungi":
             AddPanel add = new AddPanel();
-            int result = JOptionPane.showConfirmDialog(View.this, add, "Inserimento studente", JOptionPane.OK_CANCEL_OPTION);
+            int result = JOptionPane.showConfirmDialog(View.this, add, "Inserimento prodotto", JOptionPane.OK_CANCEL_OPTION);
             if (result == JOptionPane.OK_OPTION) {
                model.add(add.getProdotto());              
             }
@@ -119,13 +119,8 @@ public class View extends JFrame implements ActionListener{
              break;
          case "Operazioni":
              Object []buttons = {"Preleva","Deposita"};
-		int i = JOptionPane.showOptionDialog(null,
-			"Scegli un opzione", "Scelta operazione",
-			JOptionPane.YES_NO_OPTION,
-    		JOptionPane.QUESTION_MESSAGE,
-    		null,
- 			buttons, buttons[0]);
-                int opnumprod = Integer.parseInt(JOptionPane.showInputDialog(null,"Inserisci numero prodotto"));
+		int i = JOptionPane.showOptionDialog(null,"Scegli un opzione", "Scelta operazione",JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE,null,buttons, buttons[0]);
+				int opnumprod = Integer.parseInt(JOptionPane.showInputDialog(null,"Inserisci numero prodotto"));
                 int opgiac = Integer.parseInt(JOptionPane.showInputDialog(null,"Inserisci giacenza"));
 		if(i == JOptionPane.YES_NO_OPTION)
                     

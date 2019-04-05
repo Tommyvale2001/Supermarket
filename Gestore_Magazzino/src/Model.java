@@ -5,6 +5,7 @@
  */
 
 import java.io.EOFException;
+import java.lang.String;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -27,7 +28,7 @@ public class Model {
 
    
    
-   private ArrayList<Prodotti> products;
+   public ArrayList<Prodotti> products;
    public ArrayList<Operazioni> operation;
    private static int contaProdotti= 0;
    /**
@@ -140,14 +141,27 @@ public class Model {
     * 
     */
     public void add(Prodotti prodotto) {
-      contaProdotti+=1;
-      if (!products.getNomeprod().contains(prodotto.getNomeprod())) {
-         products.add(prodotto);     
+      
+      boolean f=false;
+      for(int i=0;i<products.size()&&!f;i++){
+    	  if(prodotto.getGiacenza()<0) {
+    		  JOptionPane.showMessageDialog(null,"Errore nell'inserimento!");
+	          f=!f;
+    	  }
+    	  else if (products.get(i).getNomeprod().equals(prodotto.getNomeprod())) {
+	          JOptionPane.showMessageDialog(null,"Prodotto già esistente!");
+	          f=!f;
+	      }
+    	  
+    	  
       }
-      else
-      {
-    	  JOptionPane.showMessageDialog(null,"Prodotto già esistente!");
+      
+      if(!f) {
+    	  contaProdotti+=1;
+    	 products.add(prodotto);
       }
+    	 
+      
     }
     
     /**
@@ -157,11 +171,19 @@ public class Model {
      */
     public void Prelievo(int numprod, int qnt){
         for(int i=0; i<products.size(); i++){
-            if(products.get(i).getNumprod() == numprod && qnt <= products.get(i).getGiacenza()){
-                products.get(i).setGiacenza(products.get(i).getGiacenza()-qnt);
-                Operazioni op = new Operazioni(numprod,"Prelievo",qnt);
-                operation.add(op);
+            if(products.get(i).getNumprod() == numprod){
+                
+                if (qnt <= products.get(i).getGiacenza()&&qnt>0) {
+                	products.get(i).setGiacenza(products.get(i).getGiacenza()-qnt);
+                	Operazioni op = new Operazioni(numprod,"Prelievo",qnt);
+                	operation.add(op);
+                }
+                else {
+                	JOptionPane.showMessageDialog(null,"Errore durante il prelievo!");
+                }
+                
             }
+            
     }
     }
     /**
@@ -172,10 +194,18 @@ public class Model {
     public void Deposito(int numprod, int qnt){
         for(int i=0; i<products.size(); i++){
             if(products.get(i).getNumprod() == numprod){                
-                products.get(i).setGiacenza(products.get(i).getGiacenza()+qnt);
-                Operazioni op = new Operazioni(numprod,"Deposito",qnt);
-                operation.add(op);
+                
+                if(qnt>0) {
+                	products.get(i).setGiacenza(products.get(i).getGiacenza()+qnt);
+                	Operazioni op = new Operazioni(numprod,"Deposito",qnt);
+                	operation.add(op);
+                }
+                else {
+                	JOptionPane.showMessageDialog(null,"Errore durante il deposito!");
+                }
+                
             }
+            
         }    
     }
     
