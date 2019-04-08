@@ -7,7 +7,11 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import java.awt.GridLayout;
+import java.awt.Image;
+
 import javax.swing.JButton;
+import javax.swing.JComponent;
+
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
@@ -18,6 +22,8 @@ import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import java.awt.Font;
 import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.JLabel;
+import java.awt.Label;
 
 public class fstjfrm extends JFrame {
 
@@ -42,7 +48,7 @@ public class fstjfrm extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		
-		JButton btnFdg = new JButton("Admin Program");
+		JButton btnFdg = new JButton("Admin");
 		btnFdg.setFont(new Font("Times New Roman", Font.BOLD, 17));
 		btnFdg.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -58,30 +64,43 @@ public class fstjfrm extends JFrame {
 			}
 		});
 		
-		JButton btnLogin = new JButton("Login");
-		btnLogin.addActionListener(new ActionListener() {
+		JButton btnCustomer = new JButton("Customer");
+		btnCustomer.setFont(new Font("Times New Roman", Font.BOLD, 17));
+		btnCustomer.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 			}
 		});
-		btnLogin.setFont(new Font("Times New Roman", Font.BOLD, 16));
+		
+		
+		
+		JLabel lblSupermarket = new JLabel("SUPERMARKET");
+		lblSupermarket.setHorizontalAlignment(SwingConstants.CENTER);
+		lblSupermarket.setFont(new Font("Verdana", Font.BOLD | Font.ITALIC, 56));
+		
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
-			gl_contentPane.createParallelGroup(Alignment.LEADING)
+			gl_contentPane.createParallelGroup(Alignment.TRAILING)
 				.addGroup(gl_contentPane.createSequentialGroup()
-					.addGap(141)
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING, false)
-						.addComponent(btnLogin, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-						.addComponent(btnFdg, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-					.addContainerGap(599, Short.MAX_VALUE))
+					.addGap(20)
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+						.addComponent(btnCustomer, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+						.addComponent(btnFdg, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 242, Short.MAX_VALUE))
+					.addGap(631))
+				.addGroup(gl_contentPane.createSequentialGroup()
+					.addGap(306)
+					.addComponent(lblSupermarket, GroupLayout.DEFAULT_SIZE, 527, Short.MAX_VALUE)
+					.addGap(60))
 		);
 		gl_contentPane.setVerticalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
-				.addGroup(Alignment.TRAILING, gl_contentPane.createSequentialGroup()
-					.addGap(180)
-					.addComponent(btnLogin, GroupLayout.PREFERRED_SIZE, 29, Short.MAX_VALUE)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(btnFdg)
-					.addGap(278))
+				.addGroup(gl_contentPane.createSequentialGroup()
+					.addGap(8)
+					.addComponent(lblSupermarket, GroupLayout.DEFAULT_SIZE, 131, Short.MAX_VALUE)
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addComponent(btnCustomer, GroupLayout.PREFERRED_SIZE, 103, GroupLayout.PREFERRED_SIZE)
+					.addGap(71)
+					.addComponent(btnFdg, GroupLayout.DEFAULT_SIZE, 103, Short.MAX_VALUE)
+					.addGap(95))
 		);
 		contentPane.setLayout(gl_contentPane);
 	}
