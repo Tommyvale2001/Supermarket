@@ -20,6 +20,8 @@ import java.awt.FlowLayout;
 import javax.swing.SwingConstants;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
+import javax.swing.ImageIcon;
+
 import java.awt.Font;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JLabel;
@@ -28,6 +30,7 @@ import java.awt.Label;
 public class fstjfrm extends JFrame {
 
 	private JPanel contentPane;
+	JLabel lblNewLabel;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -43,12 +46,13 @@ public class fstjfrm extends JFrame {
 	}
 	public fstjfrm() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 919, 571);
+		setBounds(100, 100, 870, 439);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		
 		JButton btnFdg = new JButton("Admin");
+		btnFdg.setBounds(572, 217, 242, 103);
 		btnFdg.setFont(new Font("Times New Roman", Font.BOLD, 17));
 		btnFdg.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -65,43 +69,20 @@ public class fstjfrm extends JFrame {
 		});
 		
 		JButton btnCustomer = new JButton("Customer");
+		btnCustomer.setBounds(40, 217, 242, 103);
 		btnCustomer.setFont(new Font("Times New Roman", Font.BOLD, 17));
 		btnCustomer.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 			}
 		});
+		contentPane.setLayout(null);
+		contentPane.add(btnCustomer);
+		contentPane.add(btnFdg);
 		
-		
-		
-		JLabel lblSupermarket = new JLabel("SUPERMARKET");
-		lblSupermarket.setHorizontalAlignment(SwingConstants.CENTER);
-		lblSupermarket.setFont(new Font("Verdana", Font.BOLD | Font.ITALIC, 56));
-		
-		GroupLayout gl_contentPane = new GroupLayout(contentPane);
-		gl_contentPane.setHorizontalGroup(
-			gl_contentPane.createParallelGroup(Alignment.TRAILING)
-				.addGroup(gl_contentPane.createSequentialGroup()
-					.addGap(20)
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-						.addComponent(btnCustomer, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-						.addComponent(btnFdg, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 242, Short.MAX_VALUE))
-					.addGap(631))
-				.addGroup(gl_contentPane.createSequentialGroup()
-					.addGap(306)
-					.addComponent(lblSupermarket, GroupLayout.DEFAULT_SIZE, 527, Short.MAX_VALUE)
-					.addGap(60))
-		);
-		gl_contentPane.setVerticalGroup(
-			gl_contentPane.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_contentPane.createSequentialGroup()
-					.addGap(8)
-					.addComponent(lblSupermarket, GroupLayout.DEFAULT_SIZE, 131, Short.MAX_VALUE)
-					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addComponent(btnCustomer, GroupLayout.PREFERRED_SIZE, 103, GroupLayout.PREFERRED_SIZE)
-					.addGap(71)
-					.addComponent(btnFdg, GroupLayout.DEFAULT_SIZE, 103, Short.MAX_VALUE)
-					.addGap(95))
-		);
-		contentPane.setLayout(gl_contentPane);
+		lblNewLabel = new JLabel("");
+		Image img = new ImageIcon(this.getClass().getResource("/supermarket.jpg")).getImage();
+		lblNewLabel.setIcon(new ImageIcon(img));	
+		lblNewLabel.setBounds(-90, -44, 1101, 494);
+		contentPane.add(lblNewLabel);
 	}
 }
