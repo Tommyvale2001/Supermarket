@@ -96,7 +96,7 @@ public class View extends JFrame implements ActionListener{
             model.save();
             model.saveOp();
             JOptionPane.showMessageDialog(null,"File salvato!");
-            
+            System.exit(0);
             break;
          case "Aggiungi":
             AddPanel add = new AddPanel();
