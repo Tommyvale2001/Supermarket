@@ -159,10 +159,33 @@ public class Model {
       if(!f) {
     	  contaProdotti+=1;
     	 products.add(prodotto);
+    	 Operazioni op = new Operazioni(prodotto.getNumprod(),"Aggiunta prodotto",prodotto.getGiacenza());
+     	 operation.add(op);
       }
     	 
       
     }
+    
+    /**
+     * 
+     * @param numprod parametro che richiede l'inserimento un numero prodotto
+     */
+    public void remove(int numprod) {
+    
+		for(int i=0; i<products.size(); i++){
+	        if(products.get(i).getNumprod() == numprod){
+	        	int result = JOptionPane.showConfirmDialog(null,"Sei sicuro di voler eliminare il prodotto: "+ products.get(i).getNomeprod() +" ?" ,null , JOptionPane.YES_NO_OPTION);
+	            if (result == JOptionPane.YES_OPTION) {
+	               Operazioni op = new Operazioni(products.get(i).getNumprod(),"Rimozione prodotto",products.get(i).getGiacenza());
+	           	   operation.add(op);
+	           	   products.remove(i);
+	            }
+	            else {
+	            	JOptionPane.showMessageDialog(null,"Operazione annullata!");
+	            } 
+	        }
+        }
+	}
     
     /**
      * 
@@ -184,7 +207,7 @@ public class Model {
                 
             }
             
-    }
+        }
     }
     /**
      * 

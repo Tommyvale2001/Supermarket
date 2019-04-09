@@ -24,10 +24,10 @@ import javax.swing.JScrollPane;
 public class View extends JFrame implements ActionListener{
 	JButton aggiunta;
     JButton salvataggio;
+    JButton rimozione;
     JButton visualizzaprod;
     JButton operazione;
     JButton visualizzaopsaldo;
-    JButton apri;
     JButton salva;
     JList<Prodotti> list;
     JList<Operazioni> list2;
@@ -39,9 +39,9 @@ public class View extends JFrame implements ActionListener{
      */
     public View(Model model) {
       this.model = model;
-      apri = new JButton("Apertura");
-      salva = new JButton("Salvataggio");
+      salva = new JButton("Chiudi e Salva");
       aggiunta = new JButton("Aggiungi");
+      rimozione = new JButton("Rimuovi");
       operazione = new JButton("Operazioni");
       visualizzaopsaldo = new JButton("Visualizza op/saldo");
       visualizzaprod = new JButton("Visualizza prodotti");
@@ -56,9 +56,9 @@ public class View extends JFrame implements ActionListener{
       east.add(new JScrollPane(list));
       
       //ButtonGroup group = new ButtonGroup();
-      south.add(apri);
       south.add(salva);
       south.add(aggiunta);
+      south.add(rimozione);
       south.add(operazione);
       south.add(visualizzaopsaldo);
       south.add(visualizzaprod);
@@ -67,9 +67,9 @@ public class View extends JFrame implements ActionListener{
       add(east, BorderLayout.EAST);
       add(ovest, BorderLayout.WEST);
       
-      apri.addActionListener(this);
-      salva.addActionListener(this);
+      salva.addActionListener(this);      
       aggiunta.addActionListener(this);
+      rimozione.addActionListener(this);
       operazione.addActionListener(this);
       visualizzaopsaldo.addActionListener(this);
       visualizzaprod.addActionListener(this);
@@ -92,15 +92,11 @@ public class View extends JFrame implements ActionListener{
     @Override
     public void actionPerformed(ActionEvent e) {
         switch (e.getActionCommand()) {
-         case "Apertura":
-            model.open();
-            model.openOp();
-            JOptionPane.showMessageDialog(null,"File aperti!");
-            break;
-         case "Salvataggio":
+         case "Chiudi e Salva":
             model.save();
             model.saveOp();
             JOptionPane.showMessageDialog(null,"File salvato!");
+            
             break;
          case "Aggiungi":
             AddPanel add = new AddPanel();
@@ -109,6 +105,10 @@ public class View extends JFrame implements ActionListener{
                model.add(add.getProdotto());              
             }
             break;
+         case "Rimuovi":
+        	 int numprod = Integer.parseInt(JOptionPane.showInputDialog(null,"Inserisci numero prodotto"));
+                model.remove(numprod);
+             break;
          case "Visualizza prodotti":
              Prodotti[] v = new Prodotti[model.getProducts().size()];
              model.getProducts().toArray(v);
