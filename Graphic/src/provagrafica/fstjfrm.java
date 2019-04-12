@@ -58,11 +58,18 @@ public class fstjfrm extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				Runtime runtime = Runtime.getRuntime();
 				try {
+					
 					String current = new java.io.File( "." ).getCanonicalPath();
+					
 					current= current +"\\Gestore_magazzino.jar";
 					//System.out.println(current);
 					runtime.exec("java -jar "+current);
+					Thread.sleep(320);
+					setVisible(false);
 				} catch (IOException e1) {
+					e1.printStackTrace();
+				} catch (InterruptedException e1) {
+					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 			}
