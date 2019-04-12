@@ -15,16 +15,18 @@ public class Prodotti implements Serializable {
     private int numprod=0;
     private String nomeprod;
     private int giacenza;
+    private float prezzo;
     /**
      * 
      * @param numprod parametro che richiede un numero prodotto
      * @param nomeprod parametro che richiede il nome di un prodotto
      * @param giacenza parametro che richiede la sua quantità in magazzino
      */
-    public Prodotti(int numprod, String nomeprod, int giacenza) {
+    public Prodotti(int numprod, String nomeprod, int giacenza, float prezzo) {
         this.numprod = numprod;
         this.nomeprod = nomeprod;
         this.giacenza = giacenza;
+        this.prezzo=prezzo;
     }
 
     /**
@@ -33,6 +35,10 @@ public class Prodotti implements Serializable {
      */
     public int getNumprod() {
         return numprod;
+    }
+    
+    public float getPrezzo() {
+        return prezzo;
     }
     /**
      * 
@@ -107,13 +113,17 @@ public class Prodotti implements Serializable {
         this.nomeprod = nomeprod;
     }
     
+    public void setPrezzo(float prezzo) {
+        this.prezzo = prezzo;
+    }
+    
     /**
      * 
      * @return ritorna la lista degli attributi convertiti in stringhe
      */
     @Override
     public String toString() {
-        return "Prodotto " + "numprod=" + numprod + ", nomeprod=" + nomeprod + ", giacenza=" + giacenza;
+        return "Prodotto " + "numprod=" + numprod + ", nomeprod=" + nomeprod + ", giacenza=" + giacenza + ", prezzo=" + prezzo;
     }
     
 }
