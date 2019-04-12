@@ -19,15 +19,15 @@ import javax.swing.JScrollPane;
 
 /**
  *
- * @author INFO17
+ * @author dodo99
  */
-public class View extends JFrame implements ActionListener, Model.ModelObserver{
-    JButton aggiunta;
+public class View extends JFrame implements ActionListener{
+	JButton aggiunta;
     JButton salvataggio;
+    JButton rimozione;
     JButton visualizzaprod;
     JButton operazione;
     JButton visualizzaopsaldo;
-    JButton apri;
     JButton salva;
     JList<Prodotti> list;
     JList<Operazioni> list2;
@@ -39,9 +39,9 @@ public class View extends JFrame implements ActionListener, Model.ModelObserver{
      */
     public View(Model model) {
       this.model = model;
-      apri = new JButton("Apertura");
-      salva = new JButton("Salvataggio");
+      salva = new JButton("Chiudi e Salva");
       aggiunta = new JButton("Aggiungi");
+      rimozione = new JButton("Rimuovi");
       operazione = new JButton("Operazioni");
       visualizzaopsaldo = new JButton("Visualizza op/saldo");
       visualizzaprod = new JButton("Visualizza prodotti");
@@ -56,9 +56,9 @@ public class View extends JFrame implements ActionListener, Model.ModelObserver{
       east.add(new JScrollPane(list));
       
       //ButtonGroup group = new ButtonGroup();
-      south.add(apri);
       south.add(salva);
       south.add(aggiunta);
+      south.add(rimozione);
       south.add(operazione);
       south.add(visualizzaopsaldo);
       south.add(visualizzaprod);
@@ -67,9 +67,9 @@ public class View extends JFrame implements ActionListener, Model.ModelObserver{
       add(east, BorderLayout.EAST);
       add(ovest, BorderLayout.WEST);
       
-      apri.addActionListener(this);
-      salva.addActionListener(this);
+      salva.addActionListener(this);      
       aggiunta.addActionListener(this);
+      rimozione.addActionListener(this);
       operazione.addActionListener(this);
       visualizzaopsaldo.addActionListener(this);
       visualizzaprod.addActionListener(this);
@@ -92,23 +92,23 @@ public class View extends JFrame implements ActionListener, Model.ModelObserver{
     @Override
     public void actionPerformed(ActionEvent e) {
         switch (e.getActionCommand()) {
-         case "Apertura":
-            model.open();
-            model.openOp();
-            JOptionPane.showMessageDialog(null,"File aperti!");
-            break;
-         case "Salvataggio":
+         case "Chiudi e Salva":
             model.save();
             model.saveOp();
             JOptionPane.showMessageDialog(null,"File salvato!");
+            System.exit(0);
             break;
          case "Aggiungi":
             AddPanel add = new AddPanel();
-            int result = JOptionPane.showConfirmDialog(View.this, add, "Inserimento studente", JOptionPane.OK_CANCEL_OPTION);
+            int result = JOptionPane.showConfirmDialog(View.this, add, "Inserimento prodotto", JOptionPane.OK_CANCEL_OPTION);
             if (result == JOptionPane.OK_OPTION) {
                model.add(add.getProdotto());              
             }
             break;
+         case "Rimuovi":
+        	 int numprod = Integer.parseInt(JOptionPane.showInputDialog(null,"Inserisci numero prodotto"));
+                model.remove(numprod);
+             break;
          case "Visualizza prodotti":
              Prodotti[] v = new Prodotti[model.getProducts().size()];
              model.getProducts().toArray(v);
@@ -118,22 +118,23 @@ public class View extends JFrame implements ActionListener, Model.ModelObserver{
              //list2.setListData(operazioni);
              break;
          case "Operazioni":
-             Object []buttons = {"Preleva","Deposita"};
-		int i = JOptionPane.showOptionDialog(null,
-			"Scegli un opzione", "Scelta operazione",
-			JOptionPane.YES_NO_OPTION,
-    		JOptionPane.QUESTION_MESSAGE,
-    		null,
- 			buttons, buttons[0]);
-                int opnumprod = Integer.parseInt(JOptionPane.showInputDialog(null,"Inserisci numero prodotto"));
-                int opgiac = Integer.parseInt(JOptionPane.showInputDialog(null,"Inserisci giacenza"));
-		if(i == JOptionPane.YES_NO_OPTION)
-                    
-                    model.Prelievo(opnumprod, opgiac);
+             Object []buttons = {"Preleva","Deposita","Modifica prezzo"};
+		int i = JOptionPane.showOptionDialog(null,"Scegli un opzione", "Scelta operazione",JOptionPane.YES_NO_CANCEL_OPTION,JOptionPane.QUESTION_MESSAGE,null,buttons, null);
+				int opnumprod = Integer.parseInt(JOptionPane.showInputDialog(null,"Inserisci numero prodotto"));
+                
+		if(i == JOptionPane.YES_OPTION){
+			int opgiac = Integer.parseInt(JOptionPane.showInputDialog(null,"Inserisci giacenza"));
+			model.Prelievo(opnumprod, opgiac);
                     //System.exit(0);
-                else{
-                    model.Deposito(opnumprod, opgiac);
-                }
+		}   
+        else if(i == JOptionPane.NO_OPTION){
+        	int opgiac = Integer.parseInt(JOptionPane.showInputDialog(null,"Inserisci giacenza"));
+        	model.Deposito(opnumprod, opgiac);
+        }
+        else{
+        	float opnewprezzo = Float.parseFloat(JOptionPane.showInputDialog(null,"Inserisci nuovo prezzo"));
+        	model.ModificaPrezzo(opnumprod, opnewprezzo);
+        }
              break;
          case "Visualizza op/saldo":
              Operazioni[] c = new Operazioni[model.getOperation().size()];
@@ -145,31 +146,6 @@ public class View extends JFrame implements ActionListener, Model.ModelObserver{
     }
     }
 
-    /**
-     * 
-     * @param prodotti parametro che richiede un prodotto
-     * @param operazioni parametro che richiede un operazione
-     * @param status parametro che richiede uno status
-     */
-    @Override
-    public void modelChanged(Prodotti[] prodotti, Operazioni[] operazioni, Model.Status status) {
-        switch(status){
-        case openedError :
-             JOptionPane.showMessageDialog(this, "Errore nell'apertura del file", "Errore", JOptionPane.ERROR_MESSAGE);
-             break;
-          case savedError:
-             JOptionPane.showMessageDialog(this, "Errore nel salvataggio", "Errore", JOptionPane.ERROR_MESSAGE);
-             break;
-          case addError:
-             JOptionPane.showMessageDialog(this, "Codici uguali. Studente non aggiunto", "Errore", JOptionPane.ERROR_MESSAGE);
-             break;
-          case deleteError:
-             JOptionPane.showMessageDialog(this, "Prodotto inesistente", "Errore", JOptionPane.ERROR_MESSAGE);
-             break;
-          case qntError:
-              JOptionPane.showMessageDialog(this, "I prodotti sono esauriti", "Errore", JOptionPane.ERROR_MESSAGE);
-              break;
-    }
         //delete.setEnabled(false);
       //if(students.length!=0){
          //delete.setEnabled(true);
@@ -177,4 +153,4 @@ public class View extends JFrame implements ActionListener, Model.ModelObserver{
       //list.setListData(prodotti);
       //list2.setListData(operazioni);
 }
-}
+

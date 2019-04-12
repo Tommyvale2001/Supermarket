@@ -10,7 +10,7 @@ import java.util.GregorianCalendar;
 
 /**
  * 
- * @author INFO17
+ * @author dodo99
  */
 public class Operazioni implements Serializable {
     private Object data;
@@ -85,7 +85,7 @@ public class Operazioni implements Serializable {
     }
     /**
      * 
-     * @param quantita parametro che rischiede la quantita
+     * @param quantita parametro che richiede la quantita
      */
     public void setquantita(int quantita) {
         this.quantita = quantita;
