@@ -232,6 +232,25 @@ public class Model {
         }    
     }
     
+    
+    public void ModificaPrezzo(int numprod, float newprezzo){
+        for(int i=0; i<products.size(); i++){
+            if(products.get(i).getNumprod() == numprod){                
+                
+                if(newprezzo>0) {
+                	products.get(i).setPrezzo(newprezzo);
+                	Operazioni op = new Operazioni(numprod,"Modifica prezzo",products.get(i).getGiacenza() );
+                	operation.add(op);
+                }
+                else {
+                	JOptionPane.showMessageDialog(null,"Errore durante la modifica!");
+                }
+                
+            }
+            
+        }    
+    }
+    
     /**
      * 
      * @return ritorna contaProdotti per il conteggio dei prodotti 

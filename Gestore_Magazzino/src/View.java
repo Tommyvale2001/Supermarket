@@ -118,17 +118,23 @@ public class View extends JFrame implements ActionListener{
              //list2.setListData(operazioni);
              break;
          case "Operazioni":
-             Object []buttons = {"Preleva","Deposita"};
-		int i = JOptionPane.showOptionDialog(null,"Scegli un opzione", "Scelta operazione",JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE,null,buttons, buttons[0]);
+             Object []buttons = {"Preleva","Deposita","Modifica prezzo"};
+		int i = JOptionPane.showOptionDialog(null,"Scegli un opzione", "Scelta operazione",JOptionPane.YES_NO_CANCEL_OPTION,JOptionPane.QUESTION_MESSAGE,null,buttons, null);
 				int opnumprod = Integer.parseInt(JOptionPane.showInputDialog(null,"Inserisci numero prodotto"));
-                int opgiac = Integer.parseInt(JOptionPane.showInputDialog(null,"Inserisci giacenza"));
-		if(i == JOptionPane.YES_NO_OPTION)
-                    
-                    model.Prelievo(opnumprod, opgiac);
+                
+		if(i == JOptionPane.YES_OPTION){
+			int opgiac = Integer.parseInt(JOptionPane.showInputDialog(null,"Inserisci giacenza"));
+			model.Prelievo(opnumprod, opgiac);
                     //System.exit(0);
-                else{
-                    model.Deposito(opnumprod, opgiac);
-                }
+		}   
+        else if(i == JOptionPane.NO_OPTION){
+        	int opgiac = Integer.parseInt(JOptionPane.showInputDialog(null,"Inserisci giacenza"));
+        	model.Deposito(opnumprod, opgiac);
+        }
+        else{
+        	float opnewprezzo = Float.parseFloat(JOptionPane.showInputDialog(null,"Inserisci nuovo prezzo"));
+        	model.ModificaPrezzo(opnumprod, opnewprezzo);
+        }
              break;
          case "Visualizza op/saldo":
              Operazioni[] c = new Operazioni[model.getOperation().size()];
